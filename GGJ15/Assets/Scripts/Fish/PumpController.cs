@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Pump : MonoBehaviour {
+public class PumpController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
