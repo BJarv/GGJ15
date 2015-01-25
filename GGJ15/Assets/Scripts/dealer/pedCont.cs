@@ -27,7 +27,9 @@ public class pedCont : MonoBehaviour {
 		//InvokeRepeating("spawnThug", .1f, spawnThugEvery);
 		player.GetComponent<player>().canMove = false;
 		InvokeRepeating("spawnPed", .1f, spawnEvery);
-		if(PlayerPrefs.GetInt ("difficulty") == 1) {
+		deals = 3;
+		time = 50f;
+		if(PlayerPrefs.GetInt ("difficulty") == 2) {
 			deals = 5;
 			time = 70f;
 		}
@@ -126,22 +128,22 @@ public class pedCont : MonoBehaviour {
 		pop.SetActive (true);
 		if(cond == "win") { //win
 			if(PlayerPrefs.GetInt ("difficulty") == 1) {
-				Debug.Log ("no difficulty, setting it");
-				PlayerPrefs.SetInt ("difficulty", 1);
-				pop.GetComponent<PopUpController>().InitializePopup("Dealing Game","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {
-					Application.LoadLevel (Application.loadedLevel);
+				Debug.Log ("difficulty at 1");
+				PlayerPrefs.SetInt ("difficulty", 2);
+				pop.GetComponent<PopUpController>().InitializePopup("You Win","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {
+					Application.LoadLevel ("CallBetweenDealerGame");
 				});
 			} else {
-				Debug.Log ("has a key");
-				pop.GetComponent<PopUpController>().InitializePopup("Dealing Game","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {	
-					Application.LoadLevel (Application.loadedLevel);
+				Debug.Log ("difficulty at 2");
+				pop.GetComponent<PopUpController>().InitializePopup("You Win","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {	
+					Application.LoadLevel ("2Phone4");
 				});
 			}
 
 		}
 		if(cond == "lose") { //lose
 			player.GetComponent<player>().canMove = false;
-			pop.GetComponent<PopUpController>().InitializePopup("Dealing Game","Try Again","Catnip Cris is gonna be livid, better get back and there and make up for it.", delegate {
+			pop.GetComponent<PopUpController>().InitializePopup("You Lose","Try Again","Catnip Cris is gonna be livid, better get back and there and make up for it.", delegate {
 
 				Application.LoadLevel (Application.loadedLevel);
 			});

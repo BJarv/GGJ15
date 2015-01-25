@@ -26,6 +26,7 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 	public GameObject bar;
 	public int savedDir;
 	public bool postAlert = false;
+	bool running = false;
 
 	// Use this for initialization
 	void Start () {
@@ -54,7 +55,8 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 				alerted = true;
 				buying = false;
 				player.GetComponent<player>().canMove = true;
-				if(GameObject.Find ("theFuzz(Clone)").GetComponent<cop>()){
+				if(GameObject.Find ("theFuzz(Clone)").GetComponent<cop>() && !running){
+					running = true;
 					GameObject.Find ("theFuzz(Clone)").GetComponent<cop>().playParts();
 				}
 			}
@@ -70,7 +72,8 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 			buying = false;
 			player.GetComponent<player>().canMove = true;
 			myVel = new Vector2(direction * 6, 0);
-			if(GameObject.Find ("theFuzz(Clone)").GetComponent<cop>()){
+			if(GameObject.Find ("theFuzz(Clone)").GetComponent<cop>() && !running){
+				running = true;
 				GameObject.Find ("theFuzz(Clone)").GetComponent<cop>().playParts();
 			}
 		}
@@ -88,7 +91,7 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 				//timer = dealTime;
 			}
 		}
-		if(transform.position.x < pedCont.GetComponent<pedCont>().leftSpawn.x - 3f || transform.position.x > pedCont.GetComponent<pedCont>().rightSpawn.x + 3f && !spawned) {
+		if((transform.position.x < pedCont.GetComponent<pedCont>().leftSpawn.x - 3f || transform.position.x > pedCont.GetComponent<pedCont>().rightSpawn.x + 3f) && !spawned) {
 			spawned = true;
 			pedCont.GetComponent<pedCont>().spawnThug ();
 			pedCont.GetComponent<pedCont>().destroyThis(gameObject);
@@ -152,7 +155,8 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 				timing = false;
 				timer = dealTime;
 				myVel = new Vector2(direction * 6, 0);
-				if(GameObject.Find ("theFuzz(Clone)").GetComponent<cop>()){
+				if(GameObject.Find ("theFuzz(Clone)").GetComponent<cop>() && !running){
+					running = true;
 					GameObject.Find ("theFuzz(Clone)").GetComponent<cop>().playParts();
 				};
 			}

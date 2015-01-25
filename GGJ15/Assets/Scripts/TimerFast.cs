@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class TimerFast : MonoBehaviour {
 	private float tm= 0.0f;
 	public Text count;
+
 	float minutes;
 	int tmin;
 	float seconds;
@@ -16,4 +17,6 @@ public class TimerFast : MonoBehaviour {
 		string seconds = (tm % 60).ToString ("00");
 		count.text =  minutes.ToString () + " : "+seconds.ToString ();
 	}
+
+
 }
