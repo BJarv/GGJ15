@@ -7,6 +7,6 @@ public class CameraDistance : MonoBehaviour {
 	void Start () {
 		// we want 768
 		Camera camera = GetComponent<Camera> ();
-		camera.orthographicSize = Mathf.Max(Screen.height / 768.0f * 3.0f, 1.0f);
+		camera.orthographicSize = Mathf.Max(Screen.height / 768.0f * 2.25f, 1.0f);
 	}
 }
