@@ -3,10 +3,13 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class scoreKeeper : MonoBehaviour {
-	public static int remainDists;
+	public static int remainDists = 1;
+	public GameObject pedCont;
 	Text remaining;
+	bool ended = false;
 	// Use this for initialization
 	void Start () {
+		pedCont = GameObject.Find ("pedestrianController");
 		remaining = GetComponent<Text>();
 	}
 
@@ -17,8 +20,10 @@ public class scoreKeeper : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		remaining.text = "Distributions Remaining: " + remainDists;
-		if(remainDists <= 0) {
-			Application.LoadLevel (Application.loadedLevel);
+		if(remainDists <= 0 && !ended) {
+			ended = true;
+			pedCont.GetComponent<pedCont>().end("win");
+			//Application.LoadLevel (Application.loadedLevel);
 		}
 	}
 

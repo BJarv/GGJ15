@@ -12,24 +12,36 @@ public class pedCont : MonoBehaviour {
 	public float spawnEvery = .5f;
 	public float spawnThugEvery = 1f;
     public GameObject player;
-	public GameObject scoreKeeper;
-	public int deals = 5;
+	public GameObject scoreKeep;
+	public int deals = 3;
+	public float time = 50f;
 	public GameObject pop;
+	public GameObject timer;
 	// Use this for initialization
 	void Start () {
-		scoreKeeper = GameObject.Find ("Main Camera/Canvas/scoreKeeper");
-		scoreKeeper.GetComponent<scoreKeeper>().setNeeds(deals);
+		timer = GameObject.Find ("Main Camera/Canvas/timer");
+		scoreKeep = GameObject.Find ("Main Camera/Canvas/scoreKeeper");
 		player = GameObject.Find ("player");
 		leftSpawn = transform.Find ("leftSpawn").transform.position;
 		rightSpawn = transform.Find ("rightSpawn").transform.position;
 		//InvokeRepeating("spawnThug", .1f, spawnThugEvery);
+		player.GetComponent<player>().canMove = false;
+		InvokeRepeating("spawnPed", .1f, spawnEvery);
+		if(PlayerPrefs.GetInt ("difficulty") == 1) {
+			deals = 5;
+			time = 70f;
+		}
 
-		//pop.GetComponent<PopUpController>().InitializePopup("Dealing Game","Okay","yayaya", delegate {
-			InvokeRepeating("spawnPed", .1f, spawnEvery);
+		pop.GetComponent<PopUpController>().InitializePopup("Dealing Game","Okay","Distribute Catnip to thugs, but don't do it while any cops are facing you! Move left or right and press space to deal.", delegate {
+			pop.SetActive(false);
+			player.GetComponent<player>().canMove = true;
+			timer.GetComponent<Timer3>().startTime(time);
+			scoreKeep.GetComponent<scoreKeeper>().setNeeds(deals);
 			spawnThug ();
 			Invoke ("spawnCop", 10f);
-	//});
+		});
 	}
+
 
 	public void spawnThug() {
 		int leftOrRight = Random.Range(0, 2);
@@ -107,6 +119,33 @@ public class pedCont : MonoBehaviour {
 
 	public void destroyThis(GameObject me) {
 		Destroy(me);
+
+	}
+
+	public void end(string cond) { 
+		pop.SetActive (true);
+		if(cond == "win") { //win
+			if(PlayerPrefs.GetInt ("difficulty") == 1) {
+				Debug.Log ("no difficulty, setting it");
+				PlayerPrefs.SetInt ("difficulty", 1);
+				pop.GetComponent<PopUpController>().InitializePopup("Dealing Game","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {
+					Application.LoadLevel (Application.loadedLevel);
+				});
+			} else {
+				Debug.Log ("has a key");
+				pop.GetComponent<PopUpController>().InitializePopup("Dealing Game","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {	
+					Application.LoadLevel (Application.loadedLevel);
+				});
+			}
+
+		}
+		if(cond == "lose") { //lose
+			player.GetComponent<player>().canMove = false;
+			pop.GetComponent<PopUpController>().InitializePopup("Dealing Game","Try Again","Catnip Cris is gonna be livid, better get back and there and make up for it.", delegate {
+
+				Application.LoadLevel (Application.loadedLevel);
+			});
+		}
 
 	}
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class sketchCat : MonoBehaviour { //STILL NEEDS TO FACE PLAYER
+public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN ALERTED
 
 	public int direction = -1;
 	public int minVel;
@@ -24,6 +24,8 @@ public class sketchCat : MonoBehaviour { //STILL NEEDS TO FACE PLAYER
 	public GameObject exclam;
 	public GameObject questn;
 	public GameObject bar;
+	public int savedDir;
+	public bool postAlert = false;
 
 	// Use this for initialization
 	void Start () {
@@ -44,12 +46,32 @@ public class sketchCat : MonoBehaviour { //STILL NEEDS TO FACE PLAYER
 			GetComponent<Animator>().Play ("thugWalk");
 		} else {
 			if(!player.GetComponent<player>().canSell) {
+				direction = savedDir;
+				flip (direction);
 				exclam.SetActive(true);
 				questn.SetActive(false);
 				timing = false;
 				alerted = true;
 				buying = false;
 				player.GetComponent<player>().canMove = true;
+				if(GameObject.Find ("theFuzz(Clone)").GetComponent<cop>()){
+					GameObject.Find ("theFuzz(Clone)").GetComponent<cop>().playParts();
+				}
+			}
+		}
+		if(alerted && !postAlert) {
+			postAlert = true;
+			direction = savedDir;
+			flip (direction);
+			exclam.SetActive(true);
+			questn.SetActive(false);
+			timing = false;
+			alerted = true;
+			buying = false;
+			player.GetComponent<player>().canMove = true;
+			myVel = new Vector2(direction * 6, 0);
+			if(GameObject.Find ("theFuzz(Clone)").GetComponent<cop>()){
+				GameObject.Find ("theFuzz(Clone)").GetComponent<cop>().playParts();
 			}
 		}
 		if(Input.GetKeyUp (KeyCode.Space) && buying && touchingPlayer){
@@ -67,6 +89,7 @@ public class sketchCat : MonoBehaviour { //STILL NEEDS TO FACE PLAYER
 			}
 		}
 		if(transform.position.x < pedCont.GetComponent<pedCont>().leftSpawn.x - 3f || transform.position.x > pedCont.GetComponent<pedCont>().rightSpawn.x + 3f && !spawned) {
+			spawned = true;
 			pedCont.GetComponent<pedCont>().spawnThug ();
 			pedCont.GetComponent<pedCont>().destroyThis(gameObject);
 		}
@@ -101,6 +124,13 @@ public class sketchCat : MonoBehaviour { //STILL NEEDS TO FACE PLAYER
 	void OnTriggerStay2D(Collider2D colObj) {
 		if(colObj.tag == "Player") {
 			if(spaceKeyDown) { //attempt selling
+				savedDir = direction;
+				if(player.transform.position.x < transform.position.x) {
+					direction = -1;
+				} else {
+					direction = 1;
+				}
+				flip (direction);
 				spaceKeyDown = false;
 				colObj.GetComponent<player>().canMove = false;
 				buying = true;
@@ -113,13 +143,22 @@ public class sketchCat : MonoBehaviour { //STILL NEEDS TO FACE PLAYER
 				Invoke ("checkComplete", dealTime);
 			} 
 			if(Input.GetKey (KeyCode.Space) && !player.GetComponent<player>().canSell) { //caught selling
+				direction = savedDir;
+				flip (direction);
 				exclam.SetActive(true);
 				questn.SetActive(false);
 				alerted = true;
 				canBuy = false;
 				timing = false;
+				timer = dealTime;
+				myVel = new Vector2(direction * 6, 0);
+				if(GameObject.Find ("theFuzz(Clone)").GetComponent<cop>()){
+					GameObject.Find ("theFuzz(Clone)").GetComponent<cop>().playParts();
+				};
 			}
-			if(spaceKeyUp && buying && !completed && !alerted) { //cancel selling 
+			if(spaceKeyUp && buying && !completed && !alerted) { //cancel selling
+				direction = savedDir;
+				flip(direction);
 				timer = dealTime;
 				timing = false;
 				spaceKeyUp = false;
@@ -129,9 +168,9 @@ public class sketchCat : MonoBehaviour { //STILL NEEDS TO FACE PLAYER
 				canBuy = true;
 				buying = false;
 			}
-			if(Input.GetKeyDown (KeyCode.Space) && !player.GetComponent<player>().canSell) { //tried to sell while in vision of cop
-				canBuy = false;
-			}
+			//if(Input.GetKeyDown (KeyCode.Space) && !player.GetComponent<player>().canSell) { //tried to sell while in vision of cop
+			//	canBuy = false;
+			//}
 		}
 	}
 
@@ -140,8 +179,10 @@ public class sketchCat : MonoBehaviour { //STILL NEEDS TO FACE PLAYER
 			player.GetComponent<player>().canMove = true;
 			buying = false;
 			completed = true;
-			pedCont.GetComponent<pedCont>().spawnThug ();
-			spawned = true;
+			if(!spawned){
+				pedCont.GetComponent<pedCont>().spawnThug ();
+				spawned = true;
+			}
 			collider2D.enabled = false;
 			scoreKeeper.remainDists -= 1;
 		}
