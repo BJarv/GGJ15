@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
 public class FishController : MonoBehaviour {
@@ -11,19 +12,11 @@ public class FishController : MonoBehaviour {
 	public EdgeCollider2D tankWallBottom;
 	public EdgeCollider2D tankWallLeft;
 
+	public UnityAction deathHandler;
+
 	public Sprite deadFishSprite;
 
 	private bool alive = true;
-
-	// Use this for initialization
-	void Start () {
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	public void Move() {
 		rigidbody2D.velocity = RandomVelocity ();
@@ -47,6 +40,7 @@ public class FishController : MonoBehaviour {
 
 		// prevent further interaction
 		Destroy (GetComponent<BoxCollider2D> ());
+		deathHandler ();
 	}
 
 	public void Scatter(Vector2 source) {

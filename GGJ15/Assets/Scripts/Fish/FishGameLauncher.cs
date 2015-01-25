@@ -16,11 +16,12 @@ public class FishGameLauncher : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		game.InitializeGame (10, 5);
+		game.InitializeGame (10, 3, 20);
 		game.SetListeners (delegate {
 			HandleSuccess();
-				}, delegate {
-				});
+		}, delegate {
+			HandleFailure ();
+		});
 		ShowTutorial ();
 	}
 
@@ -56,6 +57,7 @@ public class FishGameLauncher : MonoBehaviour {
 	void HandleFailure() {
 		popup.InitializePopup ("Save the fish", "Try Again", "Too many fish were killed.", delegate {
 			popup.gameObject.SetActive(false);
+			game.InitializeGame(10, 20);
 			game.StartGame();
 		});
 		popup.gameObject.SetActive(true);

@@ -12,17 +12,17 @@ public class FishGame : MonoBehaviour {
 	public EdgeCollider2D tankWallLeft;
 
 	public float secondsLeft;
-	public int numberOfFishLeft;
 
 	FishController[] fishList;
-	int numberOfFish;
+	int numberOfDeadFish;
+	int maxNumberOfDeadFish;
 	float gameDuration;
 	UnityAction onSuccess, onFailure;
 	bool playing;
 
-	public void InitializeGame(int numberOfFish, float gameDuration) {
+	public void InitializeGame(int numberOfFish, int maxNumberOfDeadFish, float gameDuration) {
 		DestroyExistingFish ();
-		this.numberOfFish = numberOfFish;
+		numberOfDeadFish = 0;
 		this.gameDuration = gameDuration;
 
 		fishList = new FishController[numberOfFish];
@@ -33,6 +33,9 @@ public class FishGame : MonoBehaviour {
 			fish.tankWallRight = tankWallRight;
 			fish.tankWallLeft = tankWallLeft;
 			fish.tankWallBottom = tankWallBottom;
+			fish.deathHandler = delegate {
+				HandleFishDeath();
+			};
 			fishList[i] = fish;
 		}
 	}
@@ -48,12 +51,6 @@ public class FishGame : MonoBehaviour {
 		}
 		secondsLeft = gameDuration;
 		playing = true;
-	}
-
-	public void EndGame() {
-		foreach (FishController fish in fishList) {
-			fish.Stop ();
-		}
 	}
 
 	void Update() {
@@ -73,6 +70,11 @@ public class FishGame : MonoBehaviour {
 			}
 			onSuccess();
 		}
+	}
+
+	void HandleFishDeath() {
+		numberOfDeadFish++;
+		if (numberOfDeadFish >= maxNumberOfDeadFish) onFailure();
 	}
 
 	void DestroyExistingFish() {
