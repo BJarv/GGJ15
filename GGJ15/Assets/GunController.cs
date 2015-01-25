@@ -23,15 +23,18 @@ public class GunController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		transform.position = ray.origin;
+		if (Input.mousePosition.x > 0 && Input.mousePosition.x < Screen.width &&
+		    Input.mousePosition.y > 0 && Input.mousePosition.y < Screen.height) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			transform.position = ray.origin;
 
-		if (Input.GetMouseButtonDown (0) && !fired && catCollider.OverlapPoint(transform.position)) {
-			fired = true;
-			nozzleParticle.Play ();
-			audio1.Play();
-			Invoke ("KillCat", gunLatency);
-		}; 
+			if (Input.GetMouseButtonDown (0) && !fired && catCollider.OverlapPoint(transform.position)) {
+				fired = true;
+				nozzleParticle.Play ();
+				audio1.Play();
+				Invoke ("KillCat", gunLatency);
+			}; 
+		}
 	}
 
 	void KillCat() {
