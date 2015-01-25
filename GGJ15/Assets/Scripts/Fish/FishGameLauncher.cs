@@ -28,19 +28,19 @@ public class FishGameLauncher : MonoBehaviour {
 	}
 
 	void Update() {
-		countDownLabel.text = game.secondsLeft.ToString ();
+		countDownLabel.text = game.secondsLeft.ToString("0.0");
 	}
 
 	void InitializeGame () {
 		if (UseHigherDifficulty) {
 			game.InitializeGame (15, 2, 25);
 		} else {
-			game.InitializeGame (10, 3, 20);
+			game.InitializeGame (10, 2, 20);
 		}
 	}
 	
 	void ShowTutorial() {
-		popup.InitializePopup ("Save the Fish", "Okay", "Tap on the glass to keep the fish away from the pump.", delegate {
+		popup.InitializePopup ("Save the Fish", "Okay", "Tap on the glass to keep the fish away from the pumps.\n\n Don't lose more than 2 of Joe's fish!", delegate {
 			popup.gameObject.SetActive(false);
 			game.StartGame();
 		});
