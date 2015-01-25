@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
 public class pedCont : MonoBehaviour {
@@ -13,6 +14,7 @@ public class pedCont : MonoBehaviour {
     public GameObject player;
 	public GameObject scoreKeeper;
 	public int deals = 5;
+	public GameObject pop;
 	// Use this for initialization
 	void Start () {
 		scoreKeeper = GameObject.Find ("Main Camera/Canvas/scoreKeeper");
@@ -20,10 +22,13 @@ public class pedCont : MonoBehaviour {
 		player = GameObject.Find ("player");
 		leftSpawn = transform.Find ("leftSpawn").transform.position;
 		rightSpawn = transform.Find ("rightSpawn").transform.position;
-		InvokeRepeating("spawnPed", .1f, spawnEvery);
-		spawnThug ();
-		Invoke ("spawnCop", 10f);
 		//InvokeRepeating("spawnThug", .1f, spawnThugEvery);
+
+		//pop.GetComponent<PopUpController>().InitializePopup("Dealing Game","Okay","yayaya", delegate {
+			InvokeRepeating("spawnPed", .1f, spawnEvery);
+			spawnThug ();
+			Invoke ("spawnCop", 10f);
+	//});
 	}
 
 	public void spawnThug() {
