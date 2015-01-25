@@ -17,12 +17,16 @@ public class FishController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		rigidbody2D.velocity = RandomVelocity ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void Move() {
+		rigidbody2D.velocity = RandomVelocity ();
 	}
 
 	public void Die() {

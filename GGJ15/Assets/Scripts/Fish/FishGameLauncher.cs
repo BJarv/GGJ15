@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using System.Collections;
 
 public class FishGameLauncher : MonoBehaviour {
 
 	public GameObject fishPrefab;
 	public PopUpController popup;
-
+	public Text countDownLabel;
+	
 	public int numberOfFish;
 	public int gameDuration;
 
@@ -14,6 +16,8 @@ public class FishGameLauncher : MonoBehaviour {
 	public EdgeCollider2D tankWallRight;
 	public EdgeCollider2D tankWallBottom;
 	public EdgeCollider2D tankWallLeft;
+
+	float secondsLeft;
 
 	// Use this for initialization
 	void Start () {
@@ -37,14 +41,14 @@ public class FishGameLauncher : MonoBehaviour {
 
 	Vector2 RandomPositionInTank() {
 		// TODO better instantiation values
-		float x = Random.Range (-3, 3);
+		float x = Random.Range (-4, 4);
 		float y = Random.Range (-3, 3);
 		return new Vector2 (x, y);
 	}
 
 	void ShowTutorial() {
 		popup.InitializePopup ("Feed the fish", "Okay", "message", delegate {
-			CountDown();
+			StartGame();
 		});
 		popup.gameObject.SetActive(true);
 //		yield return CountDown ();
@@ -57,7 +61,14 @@ public class FishGameLauncher : MonoBehaviour {
 	}
 
 	void StartGame() {
-//		yield return null;
+		popup.gameObject.SetActive(false);
+		GameObject[] fishes = GameObject.FindGameObjectsWithTag("Fish");
+		foreach (var fishObj in fishes) {
+			FishController fish = fishObj.GetComponent<FishController>();
+			fish.Move ();
+		}
+		secondsLeft = gameDuration;
+		countDownLabel.text = secondsLeft.ToString();
 	}
-
+//		yield return null;
 }
