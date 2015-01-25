@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class cop : MonoBehaviour {
+public class cop : MonoBehaviour { 
 
 	public int direction = -1;
 	public int minVel;
@@ -12,6 +12,7 @@ public class cop : MonoBehaviour {
 	public GameObject pedCont;
 	public float copSpawnDelay = 3f;
 	public float copVision = 9f;
+	public AudioClip weewoo;
 	
 	// Use this for initialization
 	void Start () {
@@ -52,5 +53,10 @@ public class cop : MonoBehaviour {
 			transform.localEulerAngles = new Vector3 (0, 0, 0);
 		else if (moveH > 0)
 			transform.localEulerAngles = new Vector3 (0, 180, 0);
+	}
+
+	public void playParts() {
+		transform.Find ("light").gameObject.GetComponent<ParticleSystem>().Play ();
+		GetComponent<AudioSource>().PlayOneShot(weewoo);
 	}
 }
