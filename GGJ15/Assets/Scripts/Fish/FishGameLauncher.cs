@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
 public class FishGameLauncher : MonoBehaviour {
 
 	public GameObject fishPrefab;
+	public PopUpController popup;
+
 	public int numberOfFish;
 	public int gameDuration;
 
@@ -22,6 +25,7 @@ public class FishGameLauncher : MonoBehaviour {
 			fish.tankWallLeft = tankWallLeft;
 			fish.tankWallBottom = tankWallBottom;
 		}
+		ShowTutorial ();
 	}
 	
 	// Update is called once per frame
@@ -38,16 +42,22 @@ public class FishGameLauncher : MonoBehaviour {
 		return new Vector2 (x, y);
 	}
 
-	IEnumerator ShowTutorial() {
-		yield return CountDown ();
+	void ShowTutorial() {
+		popup.InitializePopup ("Feed the fish", "Okay", "message", delegate {
+			CountDown();
+		});
+		popup.gameObject.SetActive(true);
+//		yield return CountDown ();
 	}
 
-	IEnumerator CountDown() {
-		yield return StartGame ();
+	void CountDown() {
+		Debug.Log ("GGGG");
+		popup.gameObject.SetActive(false);
+//		yield return StartGame ();
 	}
 
-	IEnumerator StartGame() {
-		yield return null;
+	void StartGame() {
+//		yield return null;
 	}
 
 }
