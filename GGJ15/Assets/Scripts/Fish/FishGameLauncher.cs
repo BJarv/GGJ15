@@ -30,7 +30,7 @@ public class FishGameLauncher : MonoBehaviour {
 	}
 	
 	void ShowTutorial() {
-		popup.InitializePopup ("Save the Fish", "Okay", "Tap on the glass to keep fish away from the pump.", delegate {
+		popup.InitializePopup ("Save the Fish", "Okay", "Tap on the glass to keep the fish away from the pump.", delegate {
 			popup.gameObject.SetActive(false);
 			game.StartGame();
 		});
@@ -48,14 +48,14 @@ public class FishGameLauncher : MonoBehaviour {
 	}
 
 	void HandleSuccess() {
-		popup.InitializePopup ("Save the fish", "Okay", "Yay, you're a hero!", delegate {
+		popup.InitializePopup ("Save the Fish", "Okay", "Yay, you're a hero!", delegate {
 			popup.gameObject.SetActive(false);
 		});
 		popup.gameObject.SetActive(true);
 	}
 
 	void HandleFailure() {
-		popup.InitializePopup ("Save the fish", "Try Again", "Too many fish were killed.", delegate {
+		popup.InitializePopup ("Save the Fish", "Try Again", "Too many fish were killed.", delegate {
 			popup.gameObject.SetActive(false);
 			game.InitializeGame(10, 3, 20);
 			game.StartGame();
