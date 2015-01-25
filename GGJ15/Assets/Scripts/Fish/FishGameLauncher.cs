@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class FishGameLauncher : MonoBehaviour {
+
+	public static bool UseHigherDifficulty = true;
 	
 	public PopUpController popup;
 	public Text countDownLabel;
@@ -16,7 +18,7 @@ public class FishGameLauncher : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		game.InitializeGame (10, 3, 20);
+		InitializeGame ();
 		game.SetListeners (delegate {
 			HandleSuccess();
 		}, delegate {
@@ -27,6 +29,14 @@ public class FishGameLauncher : MonoBehaviour {
 
 	void Update() {
 		countDownLabel.text = game.secondsLeft.ToString ();
+	}
+
+	void InitializeGame () {
+		if (UseHigherDifficulty) {
+			game.InitializeGame (13, 2, 25);
+		} else {
+			game.InitializeGame (10, 3, 20);
+		}
 	}
 	
 	void ShowTutorial() {
@@ -57,7 +67,7 @@ public class FishGameLauncher : MonoBehaviour {
 	void HandleFailure() {
 		popup.InitializePopup ("Save the Fish", "Try Again", "Too many fish were killed.", delegate {
 			popup.gameObject.SetActive(false);
-			game.InitializeGame(10, 3, 20);
+			InitializeGame();
 			game.StartGame();
 		});
 		popup.gameObject.SetActive(true);

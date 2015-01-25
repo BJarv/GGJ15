@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class sketchCat : MonoBehaviour {
+public class sketchCat : MonoBehaviour { //STILL NEEDS TO FACE PLAYER
 
 	public int direction = -1;
 	public int minVel;
