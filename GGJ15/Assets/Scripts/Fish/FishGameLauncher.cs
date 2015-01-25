@@ -5,7 +5,7 @@ using System.Collections;
 
 public class FishGameLauncher : MonoBehaviour {
 
-	public static bool UseHigherDifficulty = true;
+	public static bool UseHigherDifficulty = false;
 	
 	public PopUpController popup;
 	public Text countDownLabel;
@@ -33,7 +33,7 @@ public class FishGameLauncher : MonoBehaviour {
 
 	void InitializeGame () {
 		if (UseHigherDifficulty) {
-			game.InitializeGame (13, 2, 25);
+			game.InitializeGame (15, 2, 25);
 		} else {
 			game.InitializeGame (10, 3, 20);
 		}
@@ -60,6 +60,12 @@ public class FishGameLauncher : MonoBehaviour {
 	void HandleSuccess() {
 		popup.InitializePopup ("Save the Fish", "Okay", "Yay, you're a hero!", delegate {
 			popup.gameObject.SetActive(false);
+			if (!UseHigherDifficulty) {
+				UseHigherDifficulty = true;
+				Application.LoadLevel("CallBetweenFishGame");
+			} else {
+				Application.LoadLevel("2Phone2");
+			}
 		});
 		popup.gameObject.SetActive(true);
 	}

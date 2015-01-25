@@ -11,6 +11,7 @@ public class AirportSceneScript : MonoBehaviour {
 	public AudioSource airportSource;
 	public AudioClip airportSound;
 	public AudioClip takeoffSound;
+	public Text laterTextUI;
 
 	bool fadeAudio = false;
 
@@ -19,7 +20,8 @@ public class AirportSceneScript : MonoBehaviour {
 		Invoke ("ShowText", 2);
 		Invoke ("ShowLeaving", 5);
 		Invoke ("FadeOut", 10);
-		Invoke ("NextScene", 20);
+		Invoke ("TwoDaysLater", 19);
+		Invoke ("NextScene", 21);
 	}
 
 	void ShowText() {
@@ -41,13 +43,17 @@ public class AirportSceneScript : MonoBehaviour {
 		airportSource.Play ();
 	}
 
+	void TwoDaysLater() {
+		laterTextUI.text = "2 DAYS LATER";
+	}
+
 	void NextScene() {
 		Application.LoadLevel("call1");
 	}
 
 	void Update() {
 		if (fadeAudio) {
-			airportSource.volume = Mathf.Lerp (airportSource.volume, 0, Time.deltaTime * .1f);
+			airportSource.volume = Mathf.Lerp (airportSource.volume, 0, Time.deltaTime * .12f);
 		}
 	}
 }
