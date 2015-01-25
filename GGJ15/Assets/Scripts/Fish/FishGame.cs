@@ -11,6 +11,8 @@ public class FishGame : MonoBehaviour {
 	public EdgeCollider2D tankWallBottom;
 	public EdgeCollider2D tankWallLeft;
 
+	public BoxCollider2D spawnArea;
+
 	public float secondsLeft;
 
 	FishController[] fishList;
@@ -64,7 +66,7 @@ public class FishGame : MonoBehaviour {
 	}
 
 	void CheckSuccess() {
-		if (secondsLeft == 0) {
+		if (secondsLeft == 0 && numberOfDeadFish < maxNumberOfDeadFish) {
 			foreach (FishController fish in fishList) {
 				fish.Stop ();
 			}
@@ -87,9 +89,11 @@ public class FishGame : MonoBehaviour {
 	}
 
 	Vector2 RandomPositionInTank() {
-		// TODO better instantiation values
-		float x = Random.Range (-4, 4);
-		float y = Random.Range (-3, 3);
+		Vector2 center = spawnArea.center;
+		Vector2 size = spawnArea.size;
+
+		float x = Random.Range (center.x - size.x/2, center.x + size.x/2);
+		float y = Random.Range (center.y - size.y/2, center.y + size.y/2);
 		return new Vector2 (x, y);
 	}
 }
