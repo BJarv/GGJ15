@@ -8,7 +8,7 @@ public class SceneNavigator : MonoBehaviour {
 	public float timeout;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		if (useTimer) {
 			Invoke("PlayNextScene", timeout);
 		}
