@@ -8,7 +8,6 @@ public class PumpController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		bubbles.renderer.sortingLayerName = "Effects";
-		Debug.Log (bubbles.renderer.sortingLayerName);
 	}
 	
 	// Update is called once per frame
