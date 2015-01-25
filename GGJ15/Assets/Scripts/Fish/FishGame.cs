@@ -25,6 +25,7 @@ public class FishGame : MonoBehaviour {
 	public void InitializeGame(int numberOfFish, int maxNumberOfDeadFish, float gameDuration) {
 		DestroyExistingFish ();
 		numberOfDeadFish = 0;
+		this.maxNumberOfDeadFish = maxNumberOfDeadFish;
 		this.gameDuration = gameDuration;
 
 		fishList = new FishController[numberOfFish];
@@ -76,7 +77,10 @@ public class FishGame : MonoBehaviour {
 
 	void HandleFishDeath() {
 		numberOfDeadFish++;
-		if (numberOfDeadFish >= maxNumberOfDeadFish) onFailure();
+		if (numberOfDeadFish >= maxNumberOfDeadFish) {
+			playing = false;
+			onFailure ();
+		}
 	}
 
 	void DestroyExistingFish() {
