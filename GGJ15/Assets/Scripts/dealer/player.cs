@@ -7,10 +7,11 @@ public class player : MonoBehaviour {
 	public float addSpeed = 25f;
 	public bool canMove = true;
 	public bool canSell = true;
+	public Animator animator;
 
 	// Use this for initialization
 	void Start () {
-	
+		animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -20,14 +21,17 @@ public class player : MonoBehaviour {
 			flip (moveH);
 			//Debug.Log(rigidbody2D.velocity.x <= maxSpeed);
 			if(moveH > 0) {
+				animator.Play("playerWalk");
 				if(rigidbody2D.velocity.x <= maxSpeed)
 					rigidbody2D.AddForce(new Vector2 (moveH * addSpeed, 0));
 			}
 			else if(moveH < 0) {
+				animator.Play("playerWalk");
 				if(rigidbody2D.velocity.x > -maxSpeed)
 					rigidbody2D.AddForce(new Vector2 (moveH * addSpeed, 0));
 			}
 			else {
+				animator.Play("idle");
 				rigidbody2D.velocity = Vector2.zero;
 			}
 		} else {

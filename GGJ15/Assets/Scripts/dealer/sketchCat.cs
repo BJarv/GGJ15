@@ -23,9 +23,11 @@ public class sketchCat : MonoBehaviour {
 	public bool timing = false;
 	public GameObject exclam;
 	public GameObject questn;
+	public GameObject bar;
 
 	// Use this for initialization
 	void Start () {
+		bar = gameObject.transform.Find ("above/LifeBar").gameObject;
 		exclam = gameObject.transform.Find("above/!").gameObject;
 		questn = gameObject.transform.Find("above/?").gameObject;
 		timer = dealTime;
@@ -39,10 +41,12 @@ public class sketchCat : MonoBehaviour {
 		flip (direction);
 		if(!buying) {
 			rigidbody2D.velocity = myVel;
+			GetComponent<Animator>().Play ("thugWalk");
 		} else {
 			if(!player.GetComponent<player>().canSell) {
 				exclam.SetActive(true);
 				questn.SetActive(false);
+				timing = false;
 				alerted = true;
 				buying = false;
 				player.GetComponent<player>().canMove = true;
@@ -74,6 +78,8 @@ public class sketchCat : MonoBehaviour {
 			transform.localEulerAngles = new Vector3 (0, 0, 0);
 		else if (moveH > 0)
 			transform.localEulerAngles = new Vector3 (0, 180, 0);
+
+		bar.GetComponent<barFlip>().flip(moveH);
 	}
 
 	void OnTriggerEnter2D(Collider2D colObj) {
@@ -102,6 +108,8 @@ public class sketchCat : MonoBehaviour {
 				rigidbody2D.velocity = Vector2.zero;
 				questn.SetActive(false);
 				timing = true;
+				player.GetComponent<player>().animator.Play ("dealing");
+				GetComponent<Animator>().Play ("thugIdle");
 				Invoke ("checkComplete", dealTime);
 			} 
 			if(Input.GetKey (KeyCode.Space) && !player.GetComponent<player>().canSell) { //caught selling
