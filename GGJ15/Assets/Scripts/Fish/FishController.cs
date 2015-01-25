@@ -29,6 +29,10 @@ public class FishController : MonoBehaviour {
 		rigidbody2D.velocity = RandomVelocity ();
 	}
 
+	public void Stop() {
+		rigidbody2D.velocity = Vector2.zero;
+	}
+
 	public void Die() {
 		if (!alive) return;
 		alive = false;
