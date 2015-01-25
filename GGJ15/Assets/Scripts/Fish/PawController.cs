@@ -22,16 +22,19 @@ public class PawController : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0) && lastHit + durationBetweenHits < Time.time) {
 			lastHit = Time.time;
 			// start waves
-			// deflect fishes
-			GameObject[] fishes = GameObject.FindGameObjectsWithTag("Fish");
-			foreach (var fishObj in fishes) {
-				FishController fish = fishObj.GetComponent<FishController>();
-				if (fish) fish.Scatter (epicenter.position);
-			}
-
+			// deflect fish
+			ScatterFish ();
 			PlayTapVisualEffect();
 			PlayTapSoundEffect();
 		}; 
+	}
+
+	void ScatterFish() {
+		GameObject[] fishes = GameObject.FindGameObjectsWithTag("Fish");
+		foreach (var fishObj in fishes) {
+			FishController fish = fishObj.GetComponent<FishController>();
+			if (fish) fish.Scatter (epicenter.position);
+		}
 	}
 
 	void PlayTapVisualEffect() {

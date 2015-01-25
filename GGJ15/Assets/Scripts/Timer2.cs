@@ -8,7 +8,7 @@ public class Timer2 : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate() {
 		tm += Time.deltaTime;
-		string minutes = Mathf.Floor (tm / 60).ToString ("00");
+		string minutes = Mathf.Floor ((tm / 60)-1).ToString ("00");
 		string seconds = (tm % 60).ToString ("00");
 		count.text =  minutes.ToString () + " : "+seconds.ToString ();
 	}

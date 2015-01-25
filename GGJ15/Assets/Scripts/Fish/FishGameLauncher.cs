@@ -1,63 +1,75 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using System.Collections;
 
 public class FishGameLauncher : MonoBehaviour {
 
-	public GameObject fishPrefab;
+	public static bool UseHigherDifficulty = true;
+	
 	public PopUpController popup;
-
+	public Text countDownLabel;
+	public FishGame game;
+	
 	public int numberOfFish;
 	public int gameDuration;
 
-	public EdgeCollider2D tankWallTop;
-	public EdgeCollider2D tankWallRight;
-	public EdgeCollider2D tankWallBottom;
-	public EdgeCollider2D tankWallLeft;
+	float secondsLeft;
 
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < numberOfFish; i++) {
-			GameObject fishObj = (GameObject) Instantiate (fishPrefab, RandomPositionInTank(), Quaternion.identity);
-			FishController fish = fishObj.GetComponent<FishController>();
-			fish.tankWallTop = tankWallTop;
-			fish.tankWallRight = tankWallRight;
-			fish.tankWallLeft = tankWallLeft;
-			fish.tankWallBottom = tankWallBottom;
-		}
+		InitializeGame ();
+		game.SetListeners (delegate {
+			HandleSuccess();
+		}, delegate {
+			HandleFailure ();
+		});
 		ShowTutorial ();
 	}
+
+	void Update() {
+		countDownLabel.text = game.secondsLeft.ToString ();
+	}
+
+	void InitializeGame () {
+		if (UseHigherDifficulty) {
+			game.InitializeGame (13, 2, 25);
+		} else {
+			game.InitializeGame (10, 3, 20);
+		}
+	}
 	
-	// Update is called once per frame
-	void Update () {
-		// teach rule
-		// use your paw to 
-		// 3,2,1,go!
-	}
-
-	Vector2 RandomPositionInTank() {
-		// TODO better instantiation values
-		float x = Random.Range (-3, 3);
-		float y = Random.Range (-3, 3);
-		return new Vector2 (x, y);
-	}
-
 	void ShowTutorial() {
-		popup.InitializePopup ("Feed the fish", "Okay", "message", delegate {
-			CountDown();
+		popup.InitializePopup ("Save the Fish", "Okay", "Tap on the glass to keep the fish away from the pump.", delegate {
+			popup.gameObject.SetActive(false);
+			game.StartGame();
 		});
 		popup.gameObject.SetActive(true);
-//		yield return CountDown ();
-	}
-
-	void CountDown() {
-		Debug.Log ("GGGG");
-		popup.gameObject.SetActive(false);
-//		yield return StartGame ();
 	}
 
 	void StartGame() {
-//		yield return null;
+		GameObject[] fishes = GameObject.FindGameObjectsWithTag("Fish");
+		foreach (var fishObj in fishes) {
+			FishController fish = fishObj.GetComponent<FishController>();
+			fish.Move ();
+		}
+		secondsLeft = gameDuration;
+		countDownLabel.text = secondsLeft.ToString();
 	}
 
+	void HandleSuccess() {
+		popup.InitializePopup ("Save the Fish", "Okay", "Yay, you're a hero!", delegate {
+			popup.gameObject.SetActive(false);
+		});
+		popup.gameObject.SetActive(true);
+	}
+
+	void HandleFailure() {
+		popup.InitializePopup ("Save the Fish", "Try Again", "Too many fish were killed.", delegate {
+			popup.gameObject.SetActive(false);
+			InitializeGame();
+			game.StartGame();
+		});
+		popup.gameObject.SetActive(true);
+	}
 }
