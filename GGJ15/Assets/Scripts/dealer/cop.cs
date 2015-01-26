@@ -11,7 +11,7 @@ public class cop : MonoBehaviour {
 	public bool endingGame = false;
 	public GameObject pedCont;
 	public float copSpawnDelay = 3f;
-	public float copVision = 6f;
+	public float copVision = 5f;
 	public AudioClip weewoo;
 	
 	// Use this for initialization
