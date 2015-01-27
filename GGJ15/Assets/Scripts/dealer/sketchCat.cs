@@ -190,6 +190,7 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 			}
 			collider2D.enabled = false;
 			scoreKeeper.remainDists -= 1;
+			bar.SetActive (false);
 		}
 	}
 	
