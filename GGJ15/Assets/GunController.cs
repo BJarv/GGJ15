@@ -26,7 +26,7 @@ public class GunController : MonoBehaviour {
 		if (Input.mousePosition.x > 0 && Input.mousePosition.x < Screen.width &&
 		    Input.mousePosition.y > 0 && Input.mousePosition.y < Screen.height) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			transform.position = ray.origin;
+			transform.position = new Vector2(ray.origin.x, ray.origin.y);
 
 			if (Input.GetMouseButtonDown (0) && !fired && catCollider.OverlapPoint(transform.position)) {
 				fired = true;
