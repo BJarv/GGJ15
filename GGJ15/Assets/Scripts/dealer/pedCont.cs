@@ -14,6 +14,7 @@ public class pedCont : MonoBehaviour {
     public GameObject player;
 	public GameObject scoreKeep;
 	public int deals = 3;
+	private int level = 1;
 	public float time = 50f;
 	public GameObject pop;
 	public GameObject timer;
@@ -32,9 +33,10 @@ public class pedCont : MonoBehaviour {
 		if(PlayerPrefs.GetInt ("difficulty") == 2) {
 			deals = 5;
 			time = 70f;
+			level = 2;
 		}
 
-		pop.GetComponent<PopUpController>().InitializePopup("Nip Slinger","Okay","Distribute Catnip to thugs, but don't do it while any cops are facing you! Move left or right and press space to deal.", delegate {
+		pop.GetComponent<PopUpController>().InitializePopup("Nip Slinger Lvl. " + level,"Okay","Distribute Catnip to thugs, but don't do it while any cops are facing you! Move left or right and press space to deal.", delegate {
 			pop.SetActive(false);
 			player.GetComponent<player>().canMove = true;
 			timer.GetComponent<Timer3>().startTime(time);
@@ -133,7 +135,7 @@ public class pedCont : MonoBehaviour {
 				pop.GetComponent<PopUpController>().InitializePopup("You Win!","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {
 					Application.LoadLevel ("CallBetweenDealerGame");
 				});
-			} else {
+			} else if(PlayerPrefs.GetInt ("difficulty") == 2) {
 				Debug.Log ("difficulty at 2");
 				pop.GetComponent<PopUpController>().InitializePopup("You Win!","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {	
 					Application.LoadLevel ("2Phone4");
