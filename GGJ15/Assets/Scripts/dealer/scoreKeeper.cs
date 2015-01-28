@@ -23,6 +23,7 @@ public class scoreKeeper : MonoBehaviour {
 		if(remainDists <= 0 && !ended) {
 			ended = true;
 			pedCont.GetComponent<pedCont>().end("win");
+			ended = false;
 			//Application.LoadLevel (Application.loadedLevel);
 		}
 	}

@@ -11,12 +11,15 @@ public class FadeIn : MonoBehaviour {
 	public GameObject Black;
 	public GameObject Btn;
 	public GameObject Btn2;
+	public GameObject Portrait;
 	public Sprite envelope;
+	public Sprite sad;
 	// Use this for initialization
 	void Start (){
 		box = GetComponent<RawImage>();
 		Title = GameObject.Find ("title");
 		Img = GameObject.Find ("imgp");
+		Portrait = GameObject.Find ("Portrait left");
 		Invoke ("startFade", 5f);
 		Invoke ("reverseFade", 34f);
 	}
@@ -28,7 +31,7 @@ public class FadeIn : MonoBehaviour {
 			box.color = new Color (1f, 1f, 1f, fader);
 		}
 		if (FadeFromBlack) {
-			float fader = Mathf.Lerp (box.color.a, 0, Time.deltaTime * 1.00000006f);
+			float fader = Mathf.Lerp (box.color.a, 0, Time.deltaTime * 1.00000008f);
 			box.color = new Color (1f, 1f, 1f, fader);
 		}
 	}
@@ -39,6 +42,7 @@ public class FadeIn : MonoBehaviour {
 	void reverseFade(){
 		Title.GetComponent<Text>().text = "MSG!";
 		Img.GetComponent<Image> ().sprite = envelope;
+		Portrait.GetComponent<Image>().sprite = sad;
 		Btn.SetActive (true);
 		Btn2.SetActive (true);
 

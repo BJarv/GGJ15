@@ -63,6 +63,7 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 		}
 		if(alerted && !postAlert) {
 			postAlert = true;
+			pedCont.GetComponent<pedCont>().end ("lose");
 			direction = savedDir;
 			flip (direction);
 			exclam.SetActive(true);
@@ -189,6 +190,7 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 			}
 			collider2D.enabled = false;
 			scoreKeeper.remainDists -= 1;
+			bar.SetActive (false);
 		}
 	}
 	

@@ -34,7 +34,7 @@ public class pedCont : MonoBehaviour {
 			time = 70f;
 		}
 
-		pop.GetComponent<PopUpController>().InitializePopup("Dealing Game","Okay","Distribute Catnip to thugs, but don't do it while any cops are facing you! Move left or right and press space to deal.", delegate {
+		pop.GetComponent<PopUpController>().InitializePopup("Nip Slinger","Okay","Distribute Catnip to thugs, but don't do it while any cops are facing you! Move left or right and press space to deal.", delegate {
 			pop.SetActive(false);
 			player.GetComponent<player>().canMove = true;
 			timer.GetComponent<Timer3>().startTime(time);
@@ -130,12 +130,12 @@ public class pedCont : MonoBehaviour {
 			if(PlayerPrefs.GetInt ("difficulty") == 1) {
 				Debug.Log ("difficulty at 1");
 				PlayerPrefs.SetInt ("difficulty", 2);
-				pop.GetComponent<PopUpController>().InitializePopup("You Win","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {
+				pop.GetComponent<PopUpController>().InitializePopup("You Win!","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {
 					Application.LoadLevel ("CallBetweenDealerGame");
 				});
 			} else {
 				Debug.Log ("difficulty at 2");
-				pop.GetComponent<PopUpController>().InitializePopup("You Win","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {	
+				pop.GetComponent<PopUpController>().InitializePopup("You Win!","Head Home","Making some serious bank! Catnip Cris will be pleased.", delegate {	
 					Application.LoadLevel ("2Phone4");
 				});
 			}
@@ -143,7 +143,7 @@ public class pedCont : MonoBehaviour {
 		}
 		if(cond == "lose") { //lose
 			player.GetComponent<player>().canMove = false;
-			pop.GetComponent<PopUpController>().InitializePopup("You Lose","Try Again","Catnip Cris is gonna be livid, better get back and there and make up for it.", delegate {
+			pop.GetComponent<PopUpController>().InitializePopup("You lose","Try Again","Catnip Cris is gonna be livid, better get back in there and make up for it.", delegate {
 
 				Application.LoadLevel (Application.loadedLevel);
 			});
