@@ -17,7 +17,7 @@ public class PawController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		transform.position = ray.origin;
+		transform.position = new Vector2(ray.origin.x, ray.origin.y);;
 
 		if (Input.GetMouseButtonDown (0) && lastHit + durationBetweenHits < Time.time) {
 			lastHit = Time.time;
