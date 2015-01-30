@@ -6,7 +6,7 @@ public class scoreKeeper : MonoBehaviour {
 	public static int remainDists = 1;
 	public GameObject pedCont;
 	Text remaining;
-	bool ended = false;
+	public bool ended = false;
 	// Use this for initialization
 	void Start () {
 		pedCont = GameObject.Find ("pedestrianController");
