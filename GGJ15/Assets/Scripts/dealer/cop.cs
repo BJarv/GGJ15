@@ -13,16 +13,18 @@ public class cop : MonoBehaviour {
 	public float copSpawnDelay = 3f;
 	public float copVision = 5f;
 	public AudioClip weewoo;
+	private bool moonWalk = true;
 	
 	// Use this for initialization
 	void Start () {
 		pedCont = GameObject.Find("pedestrianController");
 		player = GameObject.Find ("player");
 		myVel = new Vector2(direction * Random.Range (minVel, maxVel), 0);
+		Invoke ("endMoonWalk", 3.5f);
 	}
 
 	bool onScreen() {
-		if(transform.position.x > -copVision && transform.position.x < copVision) {
+		if(transform.position.x - 3 > -copVision && transform.position.x + 3 < copVision) {
 			return true;
 		} else return false;
 	}
@@ -49,7 +51,13 @@ public class cop : MonoBehaviour {
 
 	void flip(float moveH)
 	{
-		if (moveH < 0)
+		if (moonWalk) {
+			if (moveH > 0)
+				transform.localEulerAngles = new Vector3 (0, 0, 0);
+			else if (moveH < 0)
+				transform.localEulerAngles = new Vector3 (0, 180, 0);	
+		}
+		else if (moveH < 0)
 			transform.localEulerAngles = new Vector3 (0, 0, 0);
 		else if (moveH > 0)
 			transform.localEulerAngles = new Vector3 (0, 180, 0);
@@ -58,5 +66,9 @@ public class cop : MonoBehaviour {
 	public void playParts() {
 		transform.Find ("light").gameObject.GetComponent<ParticleSystem>().Play ();
 		GetComponent<AudioSource>().PlayOneShot(weewoo);
+	}
+
+	void endMoonWalk(){
+		moonWalk = false;
 	}
 }

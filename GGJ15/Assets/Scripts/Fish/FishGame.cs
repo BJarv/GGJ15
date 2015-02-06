@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using System.Collections;
 
 public class FishGame : MonoBehaviour {
 
 	public GameObject fishPrefab;
+	public Text fishCountLabel;
 
 	public EdgeCollider2D tankWallTop;
 	public EdgeCollider2D tankWallRight;
@@ -27,6 +29,7 @@ public class FishGame : MonoBehaviour {
 		numberOfDeadFish = 0;
 		this.maxNumberOfDeadFish = maxNumberOfDeadFish;
 		this.gameDuration = gameDuration;
+		fishCountLabel = GameObject.Find ("FishCount").GetComponent<Text>();
 
 		fishList = new FishController[numberOfFish];
 		for (int i = 0; i < numberOfFish; i++) {
@@ -49,6 +52,7 @@ public class FishGame : MonoBehaviour {
 	}
 
 	public void StartGame() {
+
 		foreach (FishController fish in fishList) {
 			fish.Move ();
 		}
@@ -57,8 +61,8 @@ public class FishGame : MonoBehaviour {
 	}
 
 	void Update() {
+		fishCountLabel.text = numberOfDeadFish.ToString ("0");
 		if (!playing) return;
-
 		if (secondsLeft > 0) {
 			secondsLeft = Mathf.Max(0, secondsLeft - Time.deltaTime);
 		}

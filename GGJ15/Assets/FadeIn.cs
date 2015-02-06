@@ -11,6 +11,8 @@ public class FadeIn : MonoBehaviour {
 	public GameObject Black;
 	public GameObject Btn;
 	public GameObject Btn2;
+	public GameObject Btn3;
+	public GameObject Btn4;
 	public GameObject Portrait;
 	public Sprite envelope;
 	public Sprite sad;
@@ -45,6 +47,8 @@ public class FadeIn : MonoBehaviour {
 		Portrait.GetComponent<Image>().sprite = sad;
 		Btn.SetActive (true);
 		Btn2.SetActive (true);
+		Btn3.SetActive (true);
+		Btn4.SetActive (true);
 
 		FadeToBlack = false;
 		FadeFromBlack = true;

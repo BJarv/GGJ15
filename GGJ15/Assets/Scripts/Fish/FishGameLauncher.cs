@@ -35,7 +35,7 @@ public class FishGameLauncher : MonoBehaviour {
 
 	void InitializeGame () {
 		if (UseHigherDifficulty) {
-			game.InitializeGame (15, 4, 25);
+			game.InitializeGame (15, 4, 20);
 			level = 2;
 			fishNo = 4;
 		} else {
@@ -59,6 +59,7 @@ public class FishGameLauncher : MonoBehaviour {
 		}
 		secondsLeft = gameDuration;
 		countDownLabel.text = secondsLeft.ToString();
+
 	}
 
 	void HandleSuccess() {

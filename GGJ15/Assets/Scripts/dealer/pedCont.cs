@@ -32,7 +32,7 @@ public class pedCont : MonoBehaviour {
 		time = 50f;
 		if(PlayerPrefs.GetInt ("difficulty") == 2) {
 			deals = 5;
-			time = 70f;
+			time = 100f;
 			level = 2;
 			scoreKeep.GetComponent<scoreKeeper>().ended = false;
 			scoreKeep.GetComponent<scoreKeeper>().setNeeds(deals);
