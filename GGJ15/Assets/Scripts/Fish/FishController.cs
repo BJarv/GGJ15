@@ -19,11 +19,11 @@ public class FishController : MonoBehaviour {
 	private bool alive = true;
 
 	public void Move() {
-		rigidbody2D.velocity = RandomVelocity ();
+		GetComponent<Rigidbody2D>().velocity = RandomVelocity ();
 	}
 
 	public void Stop() {
-		rigidbody2D.velocity = Vector2.zero;
+		GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 	}
 
 	public void Die() {
@@ -31,9 +31,9 @@ public class FishController : MonoBehaviour {
 		alive = false;
 
 		// apply gravity
-		rigidbody2D.velocity = new Vector2 (0, 0);
-		rigidbody2D.gravityScale = 1;
-		rigidbody2D.isKinematic = false;
+		GetComponent<Rigidbody2D>().velocity = new Vector2 (0, 0);
+		GetComponent<Rigidbody2D>().gravityScale = 1;
+		GetComponent<Rigidbody2D>().isKinematic = false;
 
 		SpriteRenderer r = GetComponent<SpriteRenderer> ();
 		r.sprite = deadFishSprite;
@@ -47,7 +47,7 @@ public class FishController : MonoBehaviour {
 		if (!alive || Vector2.Distance(transform.position, source) > scatterActivationDistance) return;
 		Vector2 newDirection = (Vector2)transform.position - source;
 		Vector2 newVelocity = Random.Range (minVelocity, maxVelocity) * newDirection.normalized;
-		rigidbody2D.velocity = newVelocity;
+		GetComponent<Rigidbody2D>().velocity = newVelocity;
 	}
 	
 	void OnTriggerEnter2D (Collider2D other) {
@@ -71,10 +71,10 @@ public class FishController : MonoBehaviour {
 	}
 
 	void ReverseXVelocity() {
-		rigidbody2D.velocity = new Vector2 (-1 * rigidbody2D.velocity.x, rigidbody2D.velocity.y);
+		GetComponent<Rigidbody2D>().velocity = new Vector2 (-1 * GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y);
 	}
 
 	void ReverseYVelocity() {
-		rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, -1 * rigidbody2D.velocity.y);
+		GetComponent<Rigidbody2D>().velocity = new Vector2 (GetComponent<Rigidbody2D>().velocity.x, -1 * GetComponent<Rigidbody2D>().velocity.y);
 	}
 }

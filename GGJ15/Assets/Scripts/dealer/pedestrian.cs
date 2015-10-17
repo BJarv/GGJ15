@@ -19,7 +19,7 @@ public class pedestrian : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		flip (direction);
-		rigidbody2D.velocity = myVel; 
+		GetComponent<Rigidbody2D>().velocity = myVel; 
 		if(transform.position.x < pedCont.GetComponent<pedCont>().leftSpawn.x - 3f || transform.position.x > pedCont.GetComponent<pedCont>().rightSpawn.x + 3f) {
 			pedCont.GetComponent<pedCont>().destroyThis(gameObject);
 		}

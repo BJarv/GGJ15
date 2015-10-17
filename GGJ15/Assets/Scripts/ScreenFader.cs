@@ -11,17 +11,17 @@ public class ScreenFader : MonoBehaviour
 	void Awake ()
 	{
 		// Set the texture so that it is the the size of the screen and covers it.
-		guiTexture.pixelInset = new Rect(0f, 0f, Screen.width, Screen.height);
-		guiTexture.renderer.sortingLayerName = "Effects";
+		GetComponent<GUITexture>().pixelInset = new Rect(0f, 0f, Screen.width, Screen.height);
+		GetComponent<GUITexture>().GetComponent<Renderer>().sortingLayerName = "Effects";
 	}
 
 	void OnGUI() {
 		if (startFade) {
-			var color = guiTexture.color;
+			var color = GetComponent<GUITexture>().color;
 			color.a = alpha;
-			guiTexture.color = color;
+			GetComponent<GUITexture>().color = color;
 
-			if(guiTexture.color.a >= 0.95f) {
+			if(GetComponent<GUITexture>().color.a >= 0.95f) {
 				Application.LoadLevel(nextScene);
 				startFade = false;
 			}
@@ -38,11 +38,11 @@ public class ScreenFader : MonoBehaviour
 	public void FadeAndLoadScene (string nextScene) {
 		this.nextScene = nextScene;
 		// Make sure the texture is enabled.
-		guiTexture.enabled = true;
+		GetComponent<GUITexture>().enabled = true;
 		Color black = Color.black;
 		alpha = 0;
 		black.a = 0;
-		guiTexture.color = black;
+		GetComponent<GUITexture>().color = black;
 
 		startFade = true;
 	}

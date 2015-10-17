@@ -11,7 +11,7 @@ public class PawController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		tapEffect.renderer.sortingLayerName = "Effects";
+		tapEffect.GetComponent<Renderer>().sortingLayerName = "Effects";
 	}
 	
 	// Update is called once per frame

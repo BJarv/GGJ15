@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class scoreKeeper : MonoBehaviour {
-	public static int remainDists = 1;
+	public static int remainDists = 3;
 	public GameObject pedCont;
 	Text remaining;
 	public bool ended = false;

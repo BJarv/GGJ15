@@ -3,7 +3,7 @@ using System.Collections;
 
 public class player : MonoBehaviour {
 
-	public float maxSpeed = 2f;
+	public float maxSpeed = 3f;
 	public float addSpeed = 25f;
 	public bool canMove = true;
 	public bool canSell = true;
@@ -22,20 +22,20 @@ public class player : MonoBehaviour {
 			//Debug.Log(rigidbody2D.velocity.x <= maxSpeed);
 			if(moveH > 0) {
 				animator.Play("playerWalk");
-				if(rigidbody2D.velocity.x <= maxSpeed)
-					rigidbody2D.AddForce(new Vector2 (moveH * addSpeed, 0));
+				if(GetComponent<Rigidbody2D>().velocity.x <= maxSpeed)
+					GetComponent<Rigidbody2D>().AddForce(new Vector2 (moveH * addSpeed, 0));
 			}
 			else if(moveH < 0) {
 				animator.Play("playerWalk");
-				if(rigidbody2D.velocity.x > -maxSpeed)
-					rigidbody2D.AddForce(new Vector2 (moveH * addSpeed, 0));
+				if(GetComponent<Rigidbody2D>().velocity.x > -maxSpeed)
+					GetComponent<Rigidbody2D>().AddForce(new Vector2 (moveH * addSpeed, 0));
 			}
 			else {
 				animator.Play("idle");
-				rigidbody2D.velocity = Vector2.zero;
+				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			}
 		} else {
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		}
 	}
 

@@ -24,6 +24,7 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 	public GameObject exclam;
 	public GameObject questn;
 	public GameObject bar;
+	public GameObject done;
 	public int savedDir;
 	public bool postAlert = false;
 	bool running = false;
@@ -33,6 +34,7 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 		bar = gameObject.transform.Find ("above/LifeBar").gameObject;
 		exclam = gameObject.transform.Find("above/!").gameObject;
 		questn = gameObject.transform.Find("above/?").gameObject;
+		done = gameObject.transform.Find("above/completed").gameObject;
 		timer = dealTime;
 		pedCont = GameObject.Find("pedestrianController");
 		player = GameObject.Find ("player");
@@ -43,7 +45,7 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 	void Update () {
 		flip (direction);
 		if(!buying) {
-			rigidbody2D.velocity = myVel;
+			GetComponent<Rigidbody2D>().velocity = myVel;
 			GetComponent<Animator>().Play ("thugWalk");
 		} else {
 			if(!player.GetComponent<player>().canSell) {
@@ -139,7 +141,7 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 				colObj.GetComponent<player>().canMove = false;
 				buying = true;
 				canBuy = false;
-				rigidbody2D.velocity = Vector2.zero;
+				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				questn.SetActive(false);
 				timing = true;
 				player.GetComponent<player>().animator.Play ("dealing");
@@ -188,9 +190,10 @@ public class sketchCat : MonoBehaviour { //NEEDS TO ACTIVATE COP PARTICLES WHEN 
 				pedCont.GetComponent<pedCont>().spawnThug ();
 				spawned = true;
 			}
-			collider2D.enabled = false;
+			GetComponent<Collider2D>().enabled = false;
 			scoreKeeper.remainDists -= 1;
 			bar.SetActive (false);
+			done.SetActive (true);
 		}
 	}
 	

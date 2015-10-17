@@ -3,7 +3,7 @@ using System.Collections;
 
 public class particleLayerSwap : MonoBehaviour {
 	void Start () {
-		gameObject.GetComponent<ParticleSystem>().renderer.sortingLayerName = "Effects";
+		gameObject.GetComponent<ParticleSystem>().GetComponent<Renderer>().sortingLayerName = "Effects";
 	}
 
 	

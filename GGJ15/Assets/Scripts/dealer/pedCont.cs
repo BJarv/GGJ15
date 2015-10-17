@@ -15,7 +15,7 @@ public class pedCont : MonoBehaviour {
 	public GameObject scoreKeep;
 	public int deals = 3;
 	private int level = 1;
-	public float time = 50f;
+	public float time = 60f;
 	public GameObject pop;
 	public GameObject timer;
 	// Use this for initialization
@@ -29,7 +29,7 @@ public class pedCont : MonoBehaviour {
 		player.GetComponent<player>().canMove = false;
 		InvokeRepeating("spawnPed", .1f, spawnEvery);
 		deals = 3;
-		time = 50f;
+		time = 60f;
 		if(PlayerPrefs.GetInt ("difficulty") == 2) {
 			deals = 5;
 			time = 100f;
@@ -82,12 +82,12 @@ public class pedCont : MonoBehaviour {
 		tempCop.GetComponent<cop>().direction = direction;
 		if(layer == 1){
 			tempCop.transform.position = new Vector2 (tempCop.transform.position.x, tempCop.transform.position.y + .5f);
-			tempCop.GetComponent<SpriteRenderer>().renderer.sortingLayerName = "Enemy 1";
+			tempCop.GetComponent<SpriteRenderer>().GetComponent<Renderer>().sortingLayerName = "Enemy 1";
 		} else if(layer == 2){
-			tempCop.GetComponent<SpriteRenderer>().renderer.sortingLayerName = "Enemy 2";
+			tempCop.GetComponent<SpriteRenderer>().GetComponent<Renderer>().sortingLayerName = "Enemy 2";
 		} else if(layer == 3){
 			tempCop.transform.position = new Vector2 (tempCop.transform.position.x, tempCop.transform.position.y - .5f);
-			tempCop.GetComponent<SpriteRenderer>().renderer.sortingLayerName = "Enemy 3";
+			tempCop.GetComponent<SpriteRenderer>().GetComponent<Renderer>().sortingLayerName = "Enemy 3";
 		}
 		//Destroy (tempCop, 30f);
 	}
@@ -113,12 +113,12 @@ public class pedCont : MonoBehaviour {
 		tempPed.GetComponent<pedestrian>().direction = direction;
 		if(layer == 1){
 			tempPed.transform.position = new Vector2 (tempPed.transform.position.x, tempPed.transform.position.y + .5f);
-			tempPed.GetComponent<SpriteRenderer>().renderer.sortingLayerName = "Enemy 1";
+			tempPed.GetComponent<SpriteRenderer>().GetComponent<Renderer>().sortingLayerName = "Enemy 1";
 		} else if(layer == 2){
-			tempPed.GetComponent<SpriteRenderer>().renderer.sortingLayerName = "Enemy 2";
+			tempPed.GetComponent<SpriteRenderer>().GetComponent<Renderer>().sortingLayerName = "Enemy 2";
 		} else if(layer == 3){
 			tempPed.transform.position = new Vector2 (tempPed.transform.position.x, tempPed.transform.position.y - .5f);
-			tempPed.GetComponent<SpriteRenderer>().renderer.sortingLayerName = "Enemy 3";
+			tempPed.GetComponent<SpriteRenderer>().GetComponent<Renderer>().sortingLayerName = "Enemy 3";
 		}
 		//Destroy (tempPed, 30f);
 	}

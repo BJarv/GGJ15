@@ -97,7 +97,7 @@ public class FishGame : MonoBehaviour {
 	}
 
 	Vector2 RandomPositionInTank() {
-		Vector2 center = spawnArea.center;
+		Vector2 center = spawnArea.offset;
 		Vector2 size = spawnArea.size;
 
 		float x = Random.Range (center.x - size.x/2, center.x + size.x/2);

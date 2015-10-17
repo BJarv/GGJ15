@@ -41,7 +41,7 @@ public class cop : MonoBehaviour {
 		} else {
 			player.GetComponent<player>().canSell = true;
 		}
-		rigidbody2D.velocity = myVel; 
+		GetComponent<Rigidbody2D>().velocity = myVel; 
 
 		if(transform.position.x < pedCont.GetComponent<pedCont>().leftSpawn.x - 3f || transform.position.x > pedCont.GetComponent<pedCont>().rightSpawn.x + 3f) {
 			pedCont.GetComponent<pedCont>().spawnCopWDelay (copSpawnDelay);
